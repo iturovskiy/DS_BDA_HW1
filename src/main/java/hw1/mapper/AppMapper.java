@@ -18,12 +18,12 @@ import java.util.regex.Pattern;
 
 public class AppMapper extends Mapper<LongWritable, Text, KeyMapper, FloatWritable> {
     /**
-     * Interval in seconds to aggregate data
+     * Interval in seconds for aggregation
      */
     private int interval;
 
     /**
-     * String representation of aggregate interval
+     * String representation of interval
      */
     private static String intervalRepresentation;
 

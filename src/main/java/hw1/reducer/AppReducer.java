@@ -28,7 +28,7 @@ public class AppReducer extends Reducer<KeyMapper, FloatWritable, KeyReducer, Fl
     protected void setup(Context context) throws IOException {
         URI[] paths = context.getCacheFiles();
         for(URI u : paths) {
-            if(u.getPath().toLowerCase().equals("mapping")) {
+            if(u.getPath().toLowerCase().contains("mapping")) {
                 mapping = MappingFileReader.read(context.getConfiguration(), new Path(u.getPath()));
                 break;
             }
@@ -53,9 +53,7 @@ public class AppReducer extends Reducer<KeyMapper, FloatWritable, KeyReducer, Fl
             sum += values.iterator().next().get();
             num += 1;
         }
-        if (context == null)
-            System.out.println("huy");
-        context.write(new KeyReducer(mapping.get(key.getDevice()), key.getTimestamp(),
-                        key.getInterval()), new FloatWritable(sum/num));
+        context.write(new KeyReducer(mapping.get(key.getDevice()), key.getTimestamp(), key.getInterval()),
+                      new FloatWritable(sum/num));
     }
 }

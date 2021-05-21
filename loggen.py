@@ -17,7 +17,7 @@ def generate_log_str(device: int, timestamp: int):
 def generate_corrupted_log_str(device: int, timestamp: int):
     val = random.randint(0, 1000) % 3
     if val == 0:
-        return "totally corrupted string"
+        return f"totally corrupted string\n"
     elif val == 1:
         return f"{(device + 1) * 10000},{timestamp},{random.randint(1, 100)}\n"
     elif val == 2:

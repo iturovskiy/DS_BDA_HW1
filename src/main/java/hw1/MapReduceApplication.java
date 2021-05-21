@@ -19,38 +19,40 @@ import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
 
 
 @Log4j
-public class MapReduceApp {
+public class MapReduceApplication {
 
     /**
      * Entry point for the application
      *
-     * @param args Optional arguments: InputDirectory, OutputDirectory, AggregationInterval
+     * @param args Optional arguments: InputDirectory, OutputDirectory, Interval
      * @throws Exception if job fails
      */
     public static void main(final String[] args) throws Exception {
 
         Configuration configuration = new Configuration();
-        if (args.length != 4) {
-            log.error("Usage: InputFileOrDirectory OutputDirectory Interval");
+        if (args.length != 3) {
+            log.error("Usage: InputDirectory OutputDirectory Interval");
             System.exit(2);
         }
-        String hdfsInputFileOrDirectory = args[0];
-        String hdfsOutputDirectory = args[1];
+        String inputDir = args[0];
+        String outputDir = args[1];
 
         configuration.set("interval", args[2]);
 
         Job job = Job.getInstance(configuration);
 
-        job.setJarByClass(MapReduceApp.class);
+        job.setJarByClass(MapReduceApplication.class);
 
         job.setMapperClass(AppMapper.class);
         job.setReducerClass(AppReducer.class);
 
+        job.addCacheFile(new Path("hdfs://localhost:9000/user/root/input/mapping").toUri());
+
         job.setMapOutputKeyClass(KeyMapper.class);
         job.setMapOutputValueClass(FloatWritable.class);
 
-        FileInputFormat.addInputPath(job, new Path(hdfsInputFileOrDirectory));
-        FileOutputFormat.setOutputPath(job, new Path((hdfsOutputDirectory)));
+        FileInputFormat.addInputPath(job, new Path(inputDir));
+        FileOutputFormat.setOutputPath(job, new Path(outputDir));
 
         job.setOutputKeyClass(KeyReducer.class);
         job.setOutputValueClass(FloatWritable.class);

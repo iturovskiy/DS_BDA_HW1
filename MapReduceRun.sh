@@ -14,5 +14,6 @@ then /opt/hadoop-2.10.1/bin/hdfs dfs -rm -r output
 fi
  
 /opt/hadoop-2.10.1/bin/hdfs dfs -put input/ input
- 
-/opt/hadoop-2.10.1/bin/yarn jar target/lab1-1.0-SNAPSHOT-jar-with-dependencies.jar input output 60000
+
+/opt/hadoop-2.10.1/sbin/start-yarn.sh
+/opt/hadoop-2.10.1/bin/yarn jar target/DS_BDA_HW1-1.0-SNAPSHOT-jar-with-dependencies.jar input output m1
