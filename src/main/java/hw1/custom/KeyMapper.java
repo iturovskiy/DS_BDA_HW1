@@ -25,7 +25,7 @@ public class KeyMapper implements WritableComparable<KeyMapper> {
     private int device;
 
     /**
-     * Truncated timestamp according to aggregation interval
+     * Timestamp
      */
     @Getter
     @Setter

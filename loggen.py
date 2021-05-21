@@ -55,7 +55,7 @@ def parse_args(foo):
     parser.add_argument("-p", "--period", type=int, help="Периодичность появления новых записей, c", default=1)
     parser.add_argument("-c", "--corrupted", type=float, help="Процент некорректных записей", default=0.1)
     parser.add_argument("-d", "--devices", type=int, help="Количество устройств", default=2)
-    parser.add_argument("-o", "--output", type=str, help="Директория для записи результата", default="./logs")
+    parser.add_argument("-o", "--output", type=str, help="Директория для записи результата", default="./input")
     parser.set_defaults(run=foo)
 
     args = parser.parse_args()

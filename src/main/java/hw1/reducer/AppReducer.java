@@ -53,6 +53,8 @@ public class AppReducer extends Reducer<KeyMapper, FloatWritable, KeyReducer, Fl
             sum += values.iterator().next().get();
             num += 1;
         }
+        if (context == null)
+            System.out.println("huy");
         context.write(new KeyReducer(mapping.get(key.getDevice()), key.getTimestamp(),
                         key.getInterval()), new FloatWritable(sum/num));
     }
